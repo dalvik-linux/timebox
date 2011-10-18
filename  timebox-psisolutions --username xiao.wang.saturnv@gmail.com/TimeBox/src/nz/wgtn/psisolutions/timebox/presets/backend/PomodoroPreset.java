@@ -123,8 +123,8 @@ public class PomodoroPreset implements Parcelable{
 		String name = presetName;
 		if(name.length() > 15)
 			name = name.substring(0, 15) + "...";
-		String format = "%-18s (%02d, %02d)";
-		return String.format(format, name, workLength, breakLength);
+		String format = "[%02d/%02d] %s";
+		return String.format(format, workLength, breakLength, name);
 	}
 
 	@Override
