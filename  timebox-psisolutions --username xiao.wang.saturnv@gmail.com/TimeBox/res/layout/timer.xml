@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	
+	<!-- ADD VISUAL CONTAINER HERE -->
+	<nz.wgtn.psisolutions.timebox.timer.gui.TimerView
+		android:id="@+id/timer_view"
+      	android:layout_width="fill_parent"
+      	android:layout_height="fill_parent"/>
+	
+
+
+	<RelativeLayout 
+		android:orientation="horizontal"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content">
+		
+		<ImageButton
+			android:src="@drawable/btn_pause" 
+			android:id="@+id/btn_pause" 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:background="@null"
+			android:onClick="pauseClicked" />
+			
+		<ImageButton
+			android:src="@drawable/btn_unmuted" 
+			android:id="@+id/btn_sound" 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="3dp"
+			android:background="@null"
+			android:onClick="soundClicked" />
+			
+		<ImageButton 
+			android:src="@drawable/btn_stop"
+			android:id="@+id/btn_stop" 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:layout_alignParentRight="true"
+			android:background="@null"
+			android:onClick="cancelTimer" />
+			
+	</RelativeLayout>
+
+	<TextView 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			style="@style/time_remaining_text"
+			android:layout_gravity="center_horizontal|bottom"
+			android:layout_marginBottom="75dp"
+			android:id="@+id/timerDisplay" />
+			
+	<TextView 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			style="@style/preset_name_text"
+			android:layout_gravity="center_horizontal|top"
+			android:layout_marginTop="75dp"
+			android:id="@+id/preset_name" />
+			
+	<TextView 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			style="@style/preset_state_text"
+			android:layout_gravity="center_horizontal|top"
+			android:layout_marginTop="145dp"
+			android:id="@+id/preset_state" />
+	
+	<Button 
+			android:visibility="invisible"
+			android:id="@+id/next_pomodoro"
+			android:layout_width="wrap_content"
+			android:layout_height="60dp"
+			android:layout_gravity="center_horizontal|top"
+			android:layout_marginTop="240dp"
+			android:background="@drawable/dropdown_background_holo"
+			style="@style/next_pomodoro_dropdown"
+			android:onClick="nextPomodoroClicked" />
+			
+	<TextView
+			android:visibility="invisible"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			style="@style/next_pomodoro_label"
+			android:layout_gravity="center_horizontal|top"
+			android:layout_marginTop="220dp"
+			android:text="@string/label_next_pomodoro"
+			android:id="@+id/next_preset" />
+			
+	<TextView style="@style/filter_overlay_hack" />
+		
+</FrameLayout>

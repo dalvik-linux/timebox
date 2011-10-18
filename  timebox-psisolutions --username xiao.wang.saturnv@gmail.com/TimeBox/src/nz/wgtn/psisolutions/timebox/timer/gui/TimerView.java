@@ -1,0 +1,151 @@
+package nz.wgtn.psisolutions.timebox.timer.gui;
+
+
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import nz.wgtn.psisolutions.timebox.Constants;
+import nz.wgtn.psisolutions.timebox.Debug;
+import nz.wgtn.psisolutions.timebox.preferences.Preferences;
+import nz.wgtn.psisolutions.timebox.timer.backend.PomodoroTimer;
+import nz.wgtn.psisolutions.timebox.timer.backend.PomodoroTimerCallback;
+import nz.wgtn.psisolutions.timebox.timer.gui.visualisations.AbstractVisualisation;
+import nz.wgtn.psisolutions.timebox.timer.gui.visualisations.CircularVisualization;
+import nz.wgtn.psisolutions.timebox.timer.gui.visualisations.RadialVisualisation;
+import nz.wgtn.psisolutions.timebox.timer.gui.visualisations.WipeVisualisation;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.util.AttributeSet;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+
+public class TimerView extends SurfaceView implements SurfaceHolder.Callback, PomodoroTimerCallback{
+	private final String TAG = "timebox.TimerView";
+	private final int DELAY = 1000/15;
+
+	/** The animation timer (15fps) */
+	private Timer animTimer;
+	private SurfaceRepaintTask repaintTask;
+	
+	private PomodoroTimer pomoTimer;
+	
+	private AbstractVisualisation visualisation;
+
+	public TimerView(Context context,AttributeSet as) {
+		super(context,as);
+		
+		SurfaceHolder holder = getHolder();
+		holder.setFormat(PixelFormat.RGBA_8888);
+		holder.addCallback(this);
+		
+		setFocusable(true);
+	}
+	
+	public void setTimer(PomodoroTimer pTimer){
+		pomoTimer = pTimer;
+	}
+
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		Debug.d(TAG, "visualisations created.");
+		pomoTimer.attachCallback(this);
+		animTimer = new Timer();
+		repaintTask = new SurfaceRepaintTask(getHolder());
+		switch(Preferences.getVisualisation()){
+		case Constants.VISUALISATION_LINEAR_WIPE:
+			visualisation = new WipeVisualisation(pomoTimer, this.getContext());
+			break;
+		case Constants.VISUALISATION_RADIAL_WIPE:
+			visualisation = new RadialVisualisation(pomoTimer, this.getContext());
+			break;
+		case Constants.VISUALISATION_CIRCULAR_WIPE:
+			visualisation = new CircularVisualization(pomoTimer, this.getContext());
+			break;
+		}
+		animTimer.schedule(repaintTask, 0, DELAY);
+	}
+
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		Debug.d(TAG, "visualisations destroyed.");
+		animTimer.cancel();
+		pomoTimer.detachCallback(this);
+	}
+
+
+	class SurfaceRepaintTask extends TimerTask{
+		private SurfaceHolder surfaceHolder;
+		private int timeRemaining;
+		
+		//Constructor to initialise thread
+		public SurfaceRepaintTask(SurfaceHolder surfaceHolder) {
+			this.surfaceHolder = surfaceHolder;
+			setTimeRemaining(pomoTimer.getHoursRemaining(),
+					pomoTimer.getMinutesRemaining(), pomoTimer.getSecondsRemaining());
+		}
+		
+		@Override
+		public void run(){
+			Canvas c = null;
+			
+		        try {
+		            c = surfaceHolder.lockCanvas(null);
+		            visualisation.drawVisualisation(timeRemaining, c);
+		        } finally {
+		            // do this in a finally so that if an exception is thrown
+		            // during the above, we don't leave the Surface in an
+		            // inconsistent state
+		            if (c != null) {
+		                surfaceHolder.unlockCanvasAndPost(c);
+		            }
+		        }
+		}
+
+		public void setTimeRemaining(int hours, int minutes, int seconds) {
+			timeRemaining = seconds;
+			timeRemaining += minutes * 60;
+			timeRemaining += hours * 3600;
+			
+		}
+	}
+
+
+	@Override
+	public void onTimerStateChanged(PomodoroTimer timer) {
+		
+	}
+
+	@Override
+	public void onStart(PomodoroTimer timer) {
+		
+	}
+
+	@Override
+	public void onPause(PomodoroTimer timer) {
+		
+	}
+
+	@Override
+	public void onResume(PomodoroTimer timer) {
+		
+	}
+
+	@Override
+	public void onCancel(PomodoroTimer timer) {
+		animTimer.cancel();
+	}
+
+	@Override
+	public void onTimerTicked(PomodoroTimer timer) {
+		repaintTask.setTimeRemaining(timer.getHoursRemaining(),
+				timer.getMinutesRemaining(), timer.getSecondsRemaining());
+	}
+
+	@Override
+	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
+		
+	}
+
+}

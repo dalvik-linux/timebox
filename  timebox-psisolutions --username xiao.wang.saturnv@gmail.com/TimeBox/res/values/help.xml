@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="help_about_title">About %s</string>
+    <string name="help_about">TimeBox is a configurable time management application that employs the Pomodoro technique.\n\nThe Pomodoro technique was developed by Francesco Cirillo in the late 1980s.The technique breaks your work flow into cycles called Pomodori (Italian for tomato).\n\nCycles are typically 25 minutes with a 5 minute break afterward.After four of such cycles, an extended break is taken (15-20 minutes).\n\nHere at Psi Solutions, we believe that life is not one-size-fits-all.We have given you the ability to configure every aspect of a Pomodoro to suit your own needs.\n\nThese configurations are stored as user presets, which can be freely created, modified or removed.The result is a dynamic time management service which helps you get work done without impeding your work flow.\n\nFor more information, help documentation for each screen can be accessed via the options menu.</string>
+	<string name="help_preset_list_title">Help: User Presets</string>
+	<string name="help_preset_list_content">This is the starting screen, which shows a list of user defined presets. The green and blue numbers attached to each preset denote the work and break duration respectively.\n\nPressing on a preset will start the pre-defined Pomodoro, while long-pressing will bring up more options (i.e. edit and delete).\n\nTo add a new preset, press the top left + button. To modify application preferences, press the top right cog button.</string>
+	<string name="help_timer_title">Help: Pomodoro Timer</string>
+	<string name="help_timer_content">This is the running Pomodoro screen. Multitasking is possible here as the Pomodoro continues to run in the Notification area. Pressing the back button on this screen will cancel the currently running Pomodoro.\n\nDuring a break cycle, the option will become available to change preset type. Changing the preset type will reset the number of cycles required before the next extended break begins.</string>
+	<string name="help_create_edit_title">Help: Create/Edit Preset</string>
+	<string name="help_create_edit_content">This is the preset edit screen. The work/break and Pomodoro/extended break ratios will automatically update depending on the defined Pomodoro length.\n\nAn extended break cannot be longer than the length of the Pomodoro.</string>
+	<string name="help_preferences_title">Help: Preferences</string>
+	<string name="help_preferences_content">This is the global application preferences screen. Any changes made here will be reflected when you next start a Pomodoro.</string>
+    <string name="menu_about_title">About</string>
+    <string name="menu_help_title">Help</string>
+</resources>

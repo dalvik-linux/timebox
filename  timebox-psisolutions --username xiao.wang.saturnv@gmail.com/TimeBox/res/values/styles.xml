@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="slider_bar">
+    	<item name="android:minHeight">48dp</item>
+    	<item name="android:maxHeight">48dp</item>
+    	<item name="android:thumbOffset">24dp</item>
+    </style>
+    <style name="slider_bar_double" parent="@style/slider_bar">
+    	<item name="android:layout_marginRight">-5dp</item>
+    </style>
+    <style name="slider_bar_number_left" parent="@android:style/TextAppearance.Large.Inverse">
+        <item name="android:paddingTop">9dp</item>
+        <item name="android:paddingLeft">5dp</item>     
+    </style>
+    <style name="slider_bar_number_right" parent="@style/slider_bar_number_left">
+        <item name="android:paddingTop">9dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:layout_gravity">right</item>  
+    </style>
+    <style name="ex_break_dropdown_text" parent="@android:style/TextAppearance.Large.Inverse">
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">50dp</item>
+    </style>
+    <style name="preset_labels" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginBottom">0dp</item>        
+    </style>
+    <style name="divider_horizontal">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#333</item>
+    </style>
+    <style name="divider_vertical">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">#333</item>
+    </style>
+    <style name="preset_row_text" parent="@android:style/TextAppearance.Large">
+    	<item name="android:textSize">30dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:layout_gravity">center_vertical</item> 
+    </style>
+    <style name="preset_row_name_text" parent="@style/preset_row_text">
+    	<item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="visualisation_text" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">50dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:shadowColor">#FF000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">5</item>
+    </style>
+    <style name="time_remaining_text" parent="@style/visualisation_text">
+    	
+    </style>
+    <style name="preset_name_text" parent="@style/visualisation_text">
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textColorHighlight">#FFF</item>
+    </style>
+    <style name="preset_state_text" parent="@style/visualisation_text">
+    	<item name="android:textSize">25dp</item>
+    	<item name="android:textColor">#CCC</item>
+    	<item name="android:shadowRadius">3</item>
+    </style>
+    <style name="filter_overlay_hack" parent="@style/visualisation_text">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="next_pomodoro_label" parent="@style/visualisation_text">
+    	<item name="android:textSize">20dp</item>
+    	<item name="android:textColor">#CCC</item>
+    	<item name="android:shadowRadius">3</item>
+    </style>
+    <style name="next_pomodoro_dropdown" parent="@style/visualisation_text">
+    	<item name="android:ellipsize">end</item>
+    	<item name="android:textSize">25dp</item>
+    	<item name="android:textColor">#FFF</item>
+    	<item name="android:shadowRadius">4</item>
+    	<item name="android:paddingLeft">50dp</item>
+    	<item name="android:paddingRight">50dp</item>
+    </style>
+</resources>

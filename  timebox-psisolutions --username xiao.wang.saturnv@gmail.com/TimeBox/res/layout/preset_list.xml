@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+	
+	<LinearLayout
+  		android:orientation="horizontal"
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content">
+  		
+  		<ImageButton
+  			android:src="@drawable/btn_new_preset"
+  			android:background="@android:drawable/list_selector_background"
+  			android:layout_width="wrap_content"
+  			android:layout_height="fill_parent"
+  			android:layout_weight="1"
+  			android:padding="5dp"
+  			android:onClick="newPresetClicked" />
+  			
+  		<TextView style="@style/divider_vertical" />
+  		
+  		<ImageButton
+  			android:id="@+id/btn_global_settings"
+  			android:src="@drawable/btn_edit_preset"
+  			android:background="@android:drawable/list_selector_background"
+  			android:layout_width="wrap_content"
+  			android:layout_height="fill_parent"
+  			android:layout_weight="1"
+  			android:padding="5dp"
+  			android:onClick="globalSettingsClicked" />  				
+  		
+	</LinearLayout>
+	
+	<TextView style="@style/divider_horizontal" />
+	
+	<ListView
+		android:id="@android:id/list"
+		android:layout_width="fill_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1" />
+		
+	<TextView
+		android:id="@android:id/empty"
+		style="@android:style/TextAppearance.Medium"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:padding="3dp"
+		android:text="@string/label_no_presets" />
+	
+</LinearLayout>

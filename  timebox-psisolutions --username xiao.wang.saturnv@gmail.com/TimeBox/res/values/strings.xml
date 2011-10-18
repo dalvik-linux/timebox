@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TimeBox</string>
+    <string name="label_no_presets">No existing presets. Please create one by pressing the + symbol.</string>
+    <string name="pause">Pause</string>
+    <string name="timer">Timer</string>
+    <string name="timerValue">test</string>
+    <string name="resume">Resume</string>
+
+    <string name="label_preset_name">Preset Name</string>
+    <string name="activity_create_preset">Create Preset</string>
+    <string name="activity_edit_preset">Edit Preset</string>
+    <string name="label_pomodoro_length">Pomodoro Length</string>
+    <string name="label_work_break_ratio">Work : Break Ratio</string>
+    <string name="label_extended_break_length">Extended Break Length</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="dialog_noname_title">No Preset Name</string>
+    <string name="dialog_noname_message">Please enter a preset name to continue.</string>
+    <string name="button_ok">OK</string>
+    <string name="dialog_remove_title">Remove Preset</string>
+    <string name="dialog_remove_message">Are you sure?</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+    <string name="preset_list_help">Click a preset to start a Pomodoro or long-click to see more options.</string>
+    <string name="menu_start_pomodoro">Start Pomodoro</string>
+    <string name="menu_edit_preset">Edit Preset</string>
+    <string name="menu_remove_preset">Remove Preset</string>
+    <string name="dialog_cancel_title">Cancel Pomodoro</string>
+    <string name="dialog_cancel_message">Are you sure you want to cancel the current Pomodoro?</string>
+    <string name="notification_start_ticker">Pomodoro started</string>
+    <string name="notification_pause_ticker">Pomodoro paused</string>
+    <string name="notification_resume_ticker">Pomodoro resumed</string>
+    <string name="notification_remaining_plural">%d minutes remaining</string>
+    <string name="notification_remaining_less_one">&lt; 1 minute remaining</string>
+    <string name="pomodoro_break">Break</string>
+    <string name="pomodoro_ex_break">Extended Break</string>
+    <string name="pomodoro_pause">Paused</string>
+    <string name="notification_break_start">Break started</string>
+    <string name="notification_break_finish">Break finished</string>
+    <string name="notification_ex_break_start">Extended break started</string>
+    <string name="button_close">Close</string>
+    <string name="label_extended_break_cycles">Pomodoros Per Extended Break</string>
+    <string-array name="extended_break_entries">
+	    <item>No Extended Break</item>
+	    <item>1 Cycle</item>
+	    <item>2 Cycles</item>
+	    <item>3 Cycles</item>
+	    <item>4 Cycles</item>
+	    <item>5 Cycles</item>
+	    <item>6 Cycles</item>
+    </string-array>
+    <string name="label_next_pomodoro">Next Pomodoro</string>
+</resources>

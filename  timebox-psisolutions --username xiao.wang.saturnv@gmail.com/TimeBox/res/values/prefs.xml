@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_key_visualisation">timebox.KEY_VISUALISATION</string>
+    <string name="pref_key_alert_tone">timebox.KEY_ALERT_TONE</string>
+    <string name="pref_key_force_audio">timebox.KEY_FORCE_AUDIO</string>
+    <string name="pref_key_lights">timebox.KEY_LIGHTS</string>
+    <string name="pref_key_wake_lock">timebox.KEY_WAKE_LOCK</string>
+    <string name="pref_key_silent">timebox.KEY_SILENT</string>
+    <string name="pref_def_visualisation">0</string>
+    <string name="pref_def_alert_tone">content://settings/system/notification_sound</string>
+    <string name="pref_def_force_audio">false</string>
+    <string name="pref_def_lights">false</string>
+    <string name="pref_def_wake_lock">false</string>
+    <string name="pref_def_silent">false</string>
+    <string name="pref_name_alert_tone">Alert Tone</string>
+    <string name="pref_name_visualisation">Visualisation</string>
+    <string name="pref_name_force_audio">Sound always on</string>
+    <string name="pref_name_lights">LED lights</string>
+    <string name="pref_name_wake_lock">Wake lock</string>
+    <string name="pref_name_silent">Silent</string>
+    <string name="pref_summary_alert_tone">Default alert sound when entering or exiting from a break.</string>
+    <string name="pref_summary_visualisation">Select the visualisation to be displayed during a Pomodoro.</string>
+    <string name="pref_summary_force_audio">Play alert tones even when the phone is on silent.</string>
+    <string name="pref_summary_lights">Flash LED lights when there is an alert.</string>
+    <string name="pref_summary_wake_lock">Prevents the screen from turning off.</string>
+    <string name="pref_summary_silent">Disables all auditory alerts.</string>
+    <string-array name="pref_entries_visualisation">
+        <item>Linear Wipe</item>
+        <item>Radial Wipe</item>
+        <item>Circular Wipe</item>
+    </string-array>
+    <string-array name="pref_values_visualisation">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

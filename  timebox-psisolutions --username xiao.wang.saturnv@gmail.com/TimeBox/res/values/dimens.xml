@@ -1,0 +1,5 @@
+
+    <resources>
+        <dimen name="edit_preset_name">25dp</dimen>
+        <dimen name="preset_list">20dp</dimen>
+    </resources>

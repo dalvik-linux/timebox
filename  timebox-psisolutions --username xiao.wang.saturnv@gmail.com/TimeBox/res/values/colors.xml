@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_edit_toggle">#0CF</color>
+    <color name="color_work">#F0F6</color>
+    <color name="color_break">#F0CF</color>
+    <color name="color_ex_break">#FFF3</color>
+    <color name="color_gradient_end">#0000</color>
+</resources>

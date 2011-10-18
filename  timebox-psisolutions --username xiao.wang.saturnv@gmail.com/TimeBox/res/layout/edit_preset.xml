@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent">
+	<LinearLayout
+	  	android:orientation="vertical"
+	  	android:layout_width="fill_parent"
+	  	android:layout_height="fill_parent">
+		
+		<LinearLayout
+	  		android:orientation="horizontal"
+	  		android:layout_width="fill_parent"
+	  		android:layout_height="wrap_content">
+	  		
+	  		<ImageButton
+	  			android:src="@drawable/btn_confirm"
+	  			android:background="@android:drawable/list_selector_background"
+	  			android:layout_width="wrap_content"
+	  			android:layout_height="fill_parent"
+	  			android:layout_weight="1"
+	  			android:padding="5dp"
+	  			android:onClick="confirmClicked" />
+	  			
+	  		<TextView style="@style/divider_vertical" />
+	  		
+	  		<ImageButton
+	  			android:src="@drawable/btn_cancel"
+	  			android:background="@android:drawable/list_selector_background"
+	  			android:layout_width="wrap_content"
+	  			android:layout_height="fill_parent"
+	  			android:layout_weight="1"
+	  			android:padding="5dp"
+	  			android:onClick="cancelClicked" />  				
+	  		
+		</LinearLayout>
+		
+		<TextView style="@style/divider_horizontal" />
+			
+		<EditText
+			android:id="@+id/preset_name"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp"
+			android:textSize="@dimen/edit_preset_name"
+			android:singleLine="true"
+			android:inputType="textCapWords"
+			android:hint="@string/label_preset_name" />
+		
+		<TextView
+			style="@style/preset_labels"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/label_pomodoro_length" />
+			
+		<FrameLayout
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content"
+		   android:orientation="horizontal">
+		   
+		   <SeekBar
+	            android:id="@+id/total_length"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            style="@style/slider_bar"
+	            android:max="65"
+	            android:progress="0"
+	            android:progressDrawable="@drawable/sliderbar_progress_grey"
+	            android:thumb="@drawable/sliderthumb_grey" />
+	            
+	        <TextView
+	            android:id="@+id/lbl_total_length"
+	            style="@style/slider_bar_number_left"
+	            android:layout_width="wrap_content"
+	            android:layout_height="fill_parent" />
+	            
+		</FrameLayout>
+	        
+	    <TextView
+			style="@style/preset_labels"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/label_work_break_ratio" />
+			
+		<FrameLayout
+	       android:layout_width="fill_parent"
+	       android:layout_height="wrap_content"
+	       android:orientation="horizontal">
+	       
+	       <SeekBar
+	            android:id="@+id/work_length"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            style="@style/slider_bar_double"
+	            android:max="65"
+	            android:progress="0"
+	            android:progressDrawable="@drawable/sliderbar_double_progress"
+	            android:thumb="@drawable/sliderthumb_double" />
+	            
+	        <TextView
+	            android:id="@+id/lbl_work_break_length"
+	            style="@style/slider_bar_number_left"
+	            android:layout_width="wrap_content"
+	            android:layout_height="fill_parent" />
+	        
+	        <TextView
+	            android:id="@+id/lbl_break_length"
+	            style="@style/slider_bar_number_right"
+	            android:layout_width="wrap_content"
+	            android:layout_height="fill_parent" />
+	            
+	    </FrameLayout>
+	        
+	    <TextView
+			style="@style/preset_labels"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/label_extended_break_length" />
+			
+		<FrameLayout
+	       android:layout_width="fill_parent"
+	       android:layout_height="wrap_content"
+	       android:orientation="horizontal">
+	       
+	       <SeekBar
+	            android:id="@+id/ex_break_length"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            style="@style/slider_bar"
+	            android:max="65"
+	            android:progress="0"
+	            android:progressDrawable="@drawable/sliderbar_progress_yellow"
+	            android:thumb="@drawable/sliderthumb_yellow" />
+	            
+	        <TextView
+	            android:id="@+id/lbl_ex_break_length"
+	            style="@style/slider_bar_number_left"
+	            android:layout_width="wrap_content"
+	            android:layout_height="fill_parent" />
+	            
+	    </FrameLayout>
+	    
+	    <TextView
+			style="@style/preset_labels"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/label_extended_break_cycles" />
+			
+		<Button 
+			android:id="@+id/ex_break_cycles"
+			android:layout_width="wrap_content"
+			android:layout_height="48dp"
+			android:background="@drawable/dropdown_background_yellow"
+			style="@style/ex_break_dropdown_text"
+			android:onClick="exBreakCyclesClicked" />
+	</LinearLayout>
+</ScrollView>
