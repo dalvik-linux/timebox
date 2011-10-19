@@ -24,18 +24,19 @@ public class Debug {
 	public static final String[] EXCEPTIONS = {};
 	public static final HashSet<String> EXCEPTIONS_SET = new HashSet<String>(Arrays.asList(EXCEPTIONS));
 	
-	private static int ONE_MINUTE = 60000;
+	// 1 means normal speed
+	private static int TIME_ACCELERATOR = 1;
 	
 	/**
 	 * Please only use for debugging.
 	 * @param oneMinute the length of one minute in milliseconds
 	 */
-	public static void setOneMinute(int oneMinute){
-		ONE_MINUTE = oneMinute;
+	public static void setTimeAccelerator(int acc){
+		TIME_ACCELERATOR = acc;
 	}
 	
-	public static int getOneMinute(){
-		return ONE_MINUTE;
+	public static int getTimeAccelerator(){
+		return TIME_ACCELERATOR;
 	}
 
 	public static void v(String tag, String message){

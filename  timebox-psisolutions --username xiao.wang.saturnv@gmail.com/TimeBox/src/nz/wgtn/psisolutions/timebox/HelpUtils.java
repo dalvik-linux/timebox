@@ -22,6 +22,9 @@ public class HelpUtils {
 		builder.setView(helpView);
 		//extract the help text view
 		TextView helpText = (TextView)helpView.findViewById(R.id.help_text);
+		//set dialog icon
+		builder.setIcon(android.R.drawable.ic_dialog_info);
+		//display text
 		switch(type){
 		case Constants.HELP_ABOUT:
 			builder.setTitle(String.format(c.getString(R.string.help_about_title), c.getString(R.string.app_name)));

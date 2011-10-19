@@ -29,12 +29,13 @@ public class PomodoroTimer {
 	public enum TimerState{WORK, BREAK, EX_BREAK, NONE};
 	
 	private static final int UPDATE_INTERVAL = 1000;
-	private static final int ONE_MINUTE = Debug.getOneMinute();
+	private static final int ONE_MINUTE = 60000;
 	
 	public PomodoroTimer(PomodoroPreset preset, PomodoroTimerCallback callback){
 		this.preset = preset;
 		callbacks = new ArrayList<PomodoroTimerCallback>();
-		attachCallback(callback);
+		if(callback != null)
+			attachCallback(callback);
 	}
 	
 	public void attachCallback(PomodoroTimerCallback callback){
@@ -168,7 +169,6 @@ public class PomodoroTimer {
 			timer.cancel();
 		long timeRemaining = preset.getWorkLength()*ONE_MINUTE;
 		timer = new PomodoroCountDown(timeRemaining);
-		timer.timeRemaining = timeRemaining;
 		timer.start();
 		paused = false;
 		if(notify)
@@ -184,7 +184,6 @@ public class PomodoroTimer {
 			timer.cancel();
 		long timeRemaining = preset.getBreakLength()*ONE_MINUTE;
 		timer = new PomodoroCountDown(timeRemaining);
-		timer.timeRemaining = timeRemaining;
 		timer.start();
 		paused = false;
 		changeState(TimerState.BREAK);
@@ -195,7 +194,6 @@ public class PomodoroTimer {
 			timer.cancel();
 		long timeRemaining = preset.getExBreakLength()*ONE_MINUTE;
 		timer = new PomodoroCountDown(timeRemaining);
-		timer.timeRemaining = timeRemaining;
 		timer.start();
 		paused = false;
 		changeState(TimerState.EX_BREAK);
@@ -212,11 +210,13 @@ public class PomodoroTimer {
 		long timeRemaining;
 
 		public PomodoroCountDown(long millisInFuture) {
-			super(millisInFuture, UPDATE_INTERVAL);
+			super(millisInFuture/Debug.getTimeAccelerator(), UPDATE_INTERVAL);
+			timeRemaining = millisInFuture;
 		}
 		
 		public PomodoroCountDown(PomodoroCountDown prevTimer){
-			super(prevTimer.timeRemaining, UPDATE_INTERVAL);
+			super(prevTimer.timeRemaining/Debug.getTimeAccelerator(), UPDATE_INTERVAL);
+			timeRemaining = prevTimer.timeRemaining;
 		}
 
 		@Override
@@ -226,7 +226,7 @@ public class PomodoroTimer {
 
 		@Override
 		public void onTick(long millisUntilFinished) {
-			timeRemaining = millisUntilFinished;
+			timeRemaining = millisUntilFinished * Debug.getTimeAccelerator();
 			for(PomodoroTimerCallback callback : callbacks)
 				callback.onTimerTicked(PomodoroTimer.this);
 			Debug.v(TAG, "onTick() ... " + timeRemaining);

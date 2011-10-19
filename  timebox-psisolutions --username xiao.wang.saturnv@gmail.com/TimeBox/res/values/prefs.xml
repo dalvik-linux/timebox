@@ -18,7 +18,7 @@
     <string name="pref_name_lights">LED lights</string>
     <string name="pref_name_wake_lock">Wake lock</string>
     <string name="pref_name_silent">Silent</string>
-    <string name="pref_summary_alert_tone">Default alert sound when entering or exiting from a break.</string>
+    <string name="pref_summary_alert_tone">Alert sound used when entering or exiting a break period.</string>
     <string name="pref_summary_visualisation">Select the visualisation to be displayed during a Pomodoro.</string>
     <string name="pref_summary_force_audio">Play alert tones even when the phone is on silent.</string>
     <string name="pref_summary_lights">Flash LED lights when there is an alert.</string>
