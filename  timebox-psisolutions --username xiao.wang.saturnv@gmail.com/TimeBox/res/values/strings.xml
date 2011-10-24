@@ -51,4 +51,5 @@
 	    <item>6 Cycles</item>
     </string-array>
     <string name="label_next_pomodoro">Next Pomodoro</string>
+    <string name="menu_preferences_title">Preferences</string>
 </resources>

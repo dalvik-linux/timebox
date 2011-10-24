@@ -8,6 +8,7 @@ import nz.wgtn.psisolutions.timebox.HelpUtils;
 import nz.wgtn.psisolutions.timebox.R;
 import nz.wgtn.psisolutions.timebox.Utils;
 import nz.wgtn.psisolutions.timebox.preferences.Preferences;
+import nz.wgtn.psisolutions.timebox.preferences.PreferencesActivity;
 import nz.wgtn.psisolutions.timebox.presets.backend.PomodoroDbAdapter;
 import nz.wgtn.psisolutions.timebox.presets.backend.PomodoroPreset;
 import nz.wgtn.psisolutions.timebox.timer.backend.PomodoroService;
@@ -26,7 +27,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.PowerManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -60,10 +60,6 @@ public class TimerActivity extends Activity {
 	//service stuff
 	private PomodoroService.PomoBinder serviceBinder;
 	private boolean mIsBound;
-
-	//wake lock
-	private PowerManager.WakeLock wakeLock;
-	private boolean wakeLockEnabled;
 
 	private ServiceConnection mConnection = new ServiceConnection (){
 
@@ -119,15 +115,11 @@ public class TimerActivity extends Activity {
 		pauseResumeButton = (ImageButton)findViewById(R.id.btn_pause);
 		cancelButton = (ImageButton)findViewById(R.id.btn_stop);
 		soundButton = (ImageButton)findViewById(R.id.btn_sound);
-		validateSoundButton();
 		nextPresetLabel = (TextView)findViewById(R.id.next_preset);
 		nextDropdown = (Button)findViewById(R.id.next_pomodoro);
 		nextDropdown.setText(preset.getPresetName());
 		registerForContextMenu(nextDropdown);
 		mTimerView = (TimerView)findViewById(R.id.timer_view);
-
-		//Check if wake lock is enabled
-		wakeLockEnabled = Preferences.isWakeLockEnabled();
 	}
 
 	private void validateSoundButton(){
@@ -211,20 +203,13 @@ public class TimerActivity extends Activity {
 	protected void onStart(){
 		super.onStart();
 		doBindService();
-		if(wakeLockEnabled){
-			PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-			wakeLock =  pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK,TAG);
-			wakeLock.acquire();
-		}
+		if(Preferences.isWakeLockEnabled())
+			getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
+		else
+			getWindow().clearFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
+		//recheck for silent
+		validateSoundButton();
 	}
-
-	protected void onStop(){
-		super.onStop();
-		//doUnbindService();
-		if(wakeLockEnabled)
-			wakeLock.release();
-	}
-
 
 	public long getTimeRemaining(){
 		return timeRemaining;
@@ -354,6 +339,11 @@ public class TimerActivity extends Activity {
 		case R.id.help_item:
 			showDialog(Constants.HELP_TIMER);
 			return true;
+		case R.id.preferences_item:
+			Intent i = new Intent(this, PreferencesActivity.class);
+			i.putExtra(Constants.KEY_DISABLE_VIS_PREF, true);
+			startActivity(i);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -362,7 +352,7 @@ public class TimerActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
+		inflater.inflate(R.menu.menu_timer, menu);
 		return true;
 	}
 

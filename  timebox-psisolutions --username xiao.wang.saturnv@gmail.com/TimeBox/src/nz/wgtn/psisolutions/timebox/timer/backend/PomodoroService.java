@@ -5,12 +5,14 @@ import nz.wgtn.psisolutions.timebox.R;
 import nz.wgtn.psisolutions.timebox.preferences.Preferences;
 import nz.wgtn.psisolutions.timebox.presets.backend.PomodoroPreset;
 import nz.wgtn.psisolutions.timebox.timer.gui.TimerActivity;
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -207,7 +209,7 @@ public class PomodoroService extends Service {
 		}
 		lastNotification.ledARGB = ledColour;
 		if(alert){
-
+			//use default vibration settings
 			lastNotification.defaults |= Notification.DEFAULT_VIBRATE;
 			//play alarm sound
 			if(!Preferences.isSilent()){

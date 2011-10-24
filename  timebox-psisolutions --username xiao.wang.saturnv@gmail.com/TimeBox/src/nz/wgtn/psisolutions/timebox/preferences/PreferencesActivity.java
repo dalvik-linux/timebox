@@ -5,6 +5,7 @@ import nz.wgtn.psisolutions.timebox.HelpUtils;
 import nz.wgtn.psisolutions.timebox.R;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,16 @@ public class PreferencesActivity extends PreferenceActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences);
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		Preference vis = findPreference(getString(R.string.pref_key_visualisation));
+		if(getIntent().getBooleanExtra(Constants.KEY_DISABLE_VIS_PREF, false))
+			vis.setEnabled(false);
+		else
+			vis.setEnabled(true);
 	}
 	
 	@Override

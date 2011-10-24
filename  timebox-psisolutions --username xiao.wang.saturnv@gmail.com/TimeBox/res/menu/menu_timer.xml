@@ -3,4 +3,5 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/about_item" android:title="@string/menu_about_title" android:icon="@android:drawable/ic_menu_info_details"></item>
     <item android:title="@string/menu_help_title" android:id="@+id/help_item" android:icon="@android:drawable/ic_menu_help"></item>
+    <item android:title="@string/menu_preferences_title" android:id="@+id/preferences_item" android:icon="@android:drawable/ic_menu_preferences"></item>
 </menu>
