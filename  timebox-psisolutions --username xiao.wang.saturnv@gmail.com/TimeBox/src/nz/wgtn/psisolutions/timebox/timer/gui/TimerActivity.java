@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.PowerManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -34,6 +35,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -56,6 +58,9 @@ public class TimerActivity extends Activity {
 	private ArrayList<PomodoroPreset> presetList;
 
 	private TimerView mTimerView;
+	
+	//wakelock
+	private PowerManager.WakeLock wakeLock;
 
 	//service stuff
 	private PomodoroService.PomoBinder serviceBinder;
@@ -120,6 +125,10 @@ public class TimerActivity extends Activity {
 		nextDropdown.setText(preset.getPresetName());
 		registerForContextMenu(nextDropdown);
 		mTimerView = (TimerView)findViewById(R.id.timer_view);
+		
+		//grab wake lock
+		wakeLock = ((PowerManager)getSystemService(Context.POWER_SERVICE))
+					.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, TAG);
 	}
 
 	private void validateSoundButton(){
@@ -200,15 +209,32 @@ public class TimerActivity extends Activity {
 		adapter.close();
 	}
 
+	@Override
 	protected void onStart(){
 		super.onStart();
 		doBindService();
-		if(Preferences.isWakeLockEnabled())
-			getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
-		else
-			getWindow().clearFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
+		if(Preferences.isWakeLockEnabled() && !wakeLock.isHeld()){
+			wakeLock.acquire();
+			Debug.d(TAG, "Wake lock acquired.");
+		}else if(wakeLock.isHeld()){
+			wakeLock.release();
+			Debug.d(TAG, "Wake lock released.");
+		}
 		//recheck for silent
 		validateSoundButton();
+		//ignore keyguard
+		Window win = getWindow();
+		win.addFlags(LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+		win.addFlags(LayoutParams.FLAG_DISMISS_KEYGUARD);
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if(wakeLock.isHeld()){
+			wakeLock.release();
+			Debug.d(TAG, "Wake lock released.");
+		}
 	}
 
 	public long getTimeRemaining(){

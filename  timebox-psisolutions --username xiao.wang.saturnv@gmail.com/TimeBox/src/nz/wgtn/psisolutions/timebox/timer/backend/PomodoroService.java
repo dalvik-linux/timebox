@@ -17,6 +17,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.PowerManager;
 
 public class PomodoroService extends Service {
 
@@ -35,6 +36,9 @@ public class PomodoroService extends Service {
 
 	private PomodoroPreset preset;
 	private PomodoroTimer pTimer;
+	
+	//wake lock
+	private PowerManager.WakeLock wakeLock;
 
 	// to update gui
 	// private Handler mHandler;
@@ -104,6 +108,12 @@ public class PomodoroService extends Service {
 	public void onCreate() {
 		notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		Debug.i(TAG, "PomoService created...");
+		
+		//grab wake lock
+		wakeLock = ((PowerManager)getSystemService(Context.POWER_SERVICE))
+					.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP
+								|PowerManager.FULL_WAKE_LOCK
+								|PowerManager.ON_AFTER_RELEASE, TAG);
 	}
 
 	// Notifying all the things.
@@ -123,7 +133,8 @@ public class PomodoroService extends Service {
 		else
 			contentText = getString(R.string.notification_remaining_less_one);
 
-		boolean alert = false;
+		boolean alert = false; //whether an alert should be played
+		boolean wake = false; //whether the device should wake up
 
 		//choose content title text and icon
 		switch (state) {
@@ -189,7 +200,7 @@ public class PomodoroService extends Service {
 				tickerText = getString(R.string.notification_ex_break_start);
 				break;
 			}
-
+			wake = true;
 			break;
 		}
 
@@ -206,6 +217,15 @@ public class PomodoroService extends Service {
 			lastNotification.when = when;			
 		}
 		lastNotification.ledARGB = ledColour;
+		
+		//wake the device if needed
+		if(wake){
+			wakeLock.acquire();
+			Debug.d(TAG, "Wake lock acquired.");
+			wakeLock.release();
+			Debug.d(TAG, "Wake lock released.");
+		}
+		
 		if(alert){
 			//use default vibration settings
 			lastNotification.defaults |= Notification.DEFAULT_VIBRATE;
@@ -219,9 +239,7 @@ public class PomodoroService extends Service {
 					if(forceAudio)
 						ringtone.setStreamType(AudioManager.STREAM_ALARM);
 					else
-
 						ringtone.setStreamType(AudioManager.STREAM_NOTIFICATION);
-
 
 					ringtone.play();
 				}catch(NullPointerException e){
