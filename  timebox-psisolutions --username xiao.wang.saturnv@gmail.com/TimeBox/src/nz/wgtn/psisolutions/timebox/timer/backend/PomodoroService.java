@@ -22,6 +22,7 @@ import android.os.PowerManager;
 public class PomodoroService extends Service {
 
 	public static final String TAG = "timebox.PomoService";
+	private static final String WAKE_TAG = "timebox.PomodoroTimer.WAKE_TAG";
 
 	// notification stuff
 	private NotificationManager notificationManager;
@@ -37,8 +38,9 @@ public class PomodoroService extends Service {
 	private PomodoroPreset preset;
 	private PomodoroTimer pTimer;
 	
-	//wake lock
+	//wake locks
 	private PowerManager.WakeLock wakeLock;
+	private PowerManager.WakeLock partialWakeLock;
 
 	// to update gui
 	// private Handler mHandler;
@@ -109,11 +111,13 @@ public class PomodoroService extends Service {
 		notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		Debug.i(TAG, "PomoService created...");
 		
-		//grab wake lock
+		//grab wake locks
 		wakeLock = ((PowerManager)getSystemService(Context.POWER_SERVICE))
 					.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP
 								|PowerManager.FULL_WAKE_LOCK
-								|PowerManager.ON_AFTER_RELEASE, TAG);
+								|PowerManager.ON_AFTER_RELEASE, WAKE_TAG);
+		partialWakeLock = ((PowerManager)getSystemService(Context.POWER_SERVICE))
+					.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
 	}
 
 	// Notifying all the things.
@@ -267,6 +271,15 @@ public class PomodoroService extends Service {
 		notificationManager.notify(NOTIFICATION_ID, lastNotification);
 		Debug.d(TAG, "doNotify() ... Notification posted.");
 	}
+	
+	@Override
+	public void onDestroy() {
+		if(partialWakeLock.isHeld()){
+			partialWakeLock.release();
+			Debug.d(TAG, "onDestroy ... Partial Wake Lock aquired.");
+		}
+		super.onDestroy();
+	}
 
 	private class ServiceCallback implements PomodoroTimerCallback {
 
@@ -286,24 +299,41 @@ public class PomodoroService extends Service {
 
 		@Override
 		public void onStart(PomodoroTimer timer) {
+			if(!partialWakeLock.isHeld()){
+				partialWakeLock.acquire();
+				Debug.d(TAG, "callback.onStart ... Partial Wake Lock aquired.");
+			}
 			updateTimeRemaining(timer);
 			doNotify(POMODORO_START, timer.getState(), timeRemaining);
 		}
 
 		@Override
 		public void onPause(PomodoroTimer timer) {
+			if(partialWakeLock.isHeld()){
+				partialWakeLock.release();
+				Debug.d(TAG, "callback.onPause ... Partial Wake Lock aquired.");
+			}
 			updateTimeRemaining(timer);
 			doNotify(POMODORO_PAUSE, timer.getState(), timeRemaining);
 		}
 
 		@Override
 		public void onResume(PomodoroTimer timer) {
+			if(!partialWakeLock.isHeld()){
+				partialWakeLock.acquire();
+				Debug.d(TAG, "callback.onResume ... Partial Wake Lock aquired.");
+			}
 			updateTimeRemaining(timer);
 			doNotify(POMODORO_RESUME, timer.getState(), timeRemaining);
 		}
 
 		@Override
-		public void onCancel(PomodoroTimer timer) {}
+		public void onCancel(PomodoroTimer timer) {
+			if(partialWakeLock.isHeld()){
+				partialWakeLock.release();
+				Debug.d(TAG, "callback.onPause ... Partial Wake Lock aquired.");
+			}
+		}
 
 		boolean updateTimeRemaining(PomodoroTimer timer) {
 			int minutes = timer.getMinutesRemaining();
