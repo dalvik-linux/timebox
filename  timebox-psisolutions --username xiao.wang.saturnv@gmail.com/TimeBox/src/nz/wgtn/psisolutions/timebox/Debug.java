@@ -19,7 +19,7 @@ public class Debug {
 	
 	public static final int VERBOSE = 4, DEBUG = 3, INFO = 2, WARN = 1, ERROR = 0, NONE = -1;
 	
-	public static final int CURRENT_DEBUG_LEVEL = VERBOSE;
+	public static final int CURRENT_DEBUG_LEVEL = ERROR;
 	
 	public static final String[] EXCEPTIONS = {};
 	public static final HashSet<String> EXCEPTIONS_SET = new HashSet<String>(Arrays.asList(EXCEPTIONS));
