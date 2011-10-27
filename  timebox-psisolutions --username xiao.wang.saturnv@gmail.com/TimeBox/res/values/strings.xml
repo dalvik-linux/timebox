@@ -52,4 +52,13 @@
     </string-array>
     <string name="label_next_pomodoro">Next Pomodoro</string>
     <string name="menu_preferences_title">Preferences</string>
+    <string name="dialog_update_title">New Update Available</string>
+    <string name="dialog_update_message">A new version of TimeBox is available.\n\nYour version: %s\n<b>Latest version: %s</b>\n\nWould you like to update now?</string>
+    <string name="button_later">Later</string>
+    <string name="button_dismiss">Dismiss</string>
+    <string name="menu_update_title">Check for updates</string>
+    <string name="dialog_no_update_title">No New Updates</string>
+    <string name="dialog_no_update_message">You already have the latest version of TimeBox.</string>
+    <string name="dialog_update_error_title">Network Error</string>
+    <string name="dialog_update_error_message">Unable to contact the update service.  Please ensure an internet connection is present on your device.</string>
 </resources>

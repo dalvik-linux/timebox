@@ -137,12 +137,42 @@ public class Preferences {
 		}
 	}
 	
+	/**
+	 * Returns the version code of the last update prompt
+	 * which the user dismissed.
+	 */
+	public static int getLastDismissedVersion(){
+		return getPreference(Constants.PREF_KEY_LAST_DISMISSED_VERSION, -1);
+	}
+	
+	/**
+	 * Sets the version code of the last update prompt
+	 * which the user dismissed.
+	 */
+	public static void setLastDismissedVersion(int versionCode){
+		if(prefs == null){
+			Debug.e(TAG, "setLastDismissedVersion ... Global preferences were never loaded!");
+		} else{
+			Editor edit = prefs.edit();
+			edit.putInt(Constants.PREF_KEY_LAST_DISMISSED_VERSION, versionCode);
+			edit.commit();
+		}
+	}
+	
 	private static boolean getPreference(String key, boolean defValue){
 		if(prefs == null){
 			Debug.e(TAG, "Global preferences were never loaded!");
 			return defValue;
 		}
 		return prefs.getBoolean(key, defValue);
+	}
+	
+	private static int getPreference(String key, int defValue){
+		if(prefs == null){
+			Debug.e(TAG, "Global preferences were never loaded!");
+			return defValue;
+		}
+		return prefs.getInt(key, defValue);
 	}
 	
 	private static String getPreference(String key, String defValue){

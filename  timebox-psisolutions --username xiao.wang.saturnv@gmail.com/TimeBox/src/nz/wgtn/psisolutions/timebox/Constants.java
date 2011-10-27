@@ -1,16 +1,19 @@
 package nz.wgtn.psisolutions.timebox;
 
 public class Constants {
-	//misc keys
+	//misc constants
 	public static final String KEY_POMODORO_PRESET = "timebox.POMODORO_PRESET";
 	public static final String KEY_PRESET_ID = "timebox.PRESET_ID";
 	public static final String KEY_TURN_SCREEN_ON = "timebox.TURN_SCREEN_ON";
 	public static final String KEY_DISABLE_VIS_PREF = "timebox.DISABLE_VIS_PREF";
 	public static final int PAUSE_DIALOG = 0x57A71C;
+	public static final String URL_APP_VERSION = "http://homepages.ecs.vuw.ac.nz/~wangdavi/timebox_version";
+	public static final String URL_APP_MARKET = "market://details?id=nz.wgtn.psisolutions.timebox";
 	
 	//preference keys
 	public static final String PREF_KEY_FIRST_RUN = "timebox.KEY_FIRST_RUN";
 	public static final String PREF_KEY_LAST_ALERT_TONE = "timebox.KEY_LAST_ALERT_TONE";
+	public static final String PREF_KEY_LAST_DISMISSED_VERSION = "timebox.KEY_LAST_DISMISSED_VERSION";
 	
 	//visualisations
 	public static final int VISUALISATION_LINEAR_WIPE = 0;

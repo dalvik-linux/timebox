@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class HelpUtils {
 	
-	public static final String TAG = "timebox.HelpHelper";
+	public static final String TAG = "timebox.HelpUtils";
 	
 	/**
 	 * Returns a relevant help dialog based on the type.
@@ -27,7 +27,7 @@ public class HelpUtils {
 		//display text
 		switch(type){
 		case Constants.HELP_ABOUT:
-			builder.setTitle(String.format(c.getString(R.string.help_about_title), c.getString(R.string.app_name)));
+			builder.setTitle(String.format(c.getString(R.string.help_about_title), Utils.getVersionName(c)));
 			helpText.setText(String.format(c.getString(R.string.help_about), c.getString(R.string.app_name)));
 			break;
 		case Constants.HELP_EDIT_PRESET:

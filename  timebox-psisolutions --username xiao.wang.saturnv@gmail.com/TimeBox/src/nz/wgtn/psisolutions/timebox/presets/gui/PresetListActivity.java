@@ -4,6 +4,7 @@ import nz.wgtn.psisolutions.timebox.Constants;
 import nz.wgtn.psisolutions.timebox.Debug;
 import nz.wgtn.psisolutions.timebox.HelpUtils;
 import nz.wgtn.psisolutions.timebox.R;
+import nz.wgtn.psisolutions.timebox.Utils;
 import nz.wgtn.psisolutions.timebox.preferences.Preferences;
 import nz.wgtn.psisolutions.timebox.preferences.PreferencesActivity;
 import nz.wgtn.psisolutions.timebox.presets.backend.PomodoroDbAdapter;
@@ -59,6 +60,9 @@ public class PresetListActivity extends ListActivity{
 
 		//listen for long-clicks
 		registerForContextMenu(getListView());
+		
+		//check for updates
+		Utils.checkForUpdates(this, false);
 	}
 	
 	@Override
@@ -218,6 +222,9 @@ public class PresetListActivity extends ListActivity{
 		case R.id.help_item:
 			showDialog(Constants.HELP_PRESET_LIST);
 			return true;
+		case R.id.update_item:
+			Utils.checkForUpdates(this, true);
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -226,7 +233,7 @@ public class PresetListActivity extends ListActivity{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
+		inflater.inflate(R.menu.menu_presets, menu);
 		return true;
 	}
 
