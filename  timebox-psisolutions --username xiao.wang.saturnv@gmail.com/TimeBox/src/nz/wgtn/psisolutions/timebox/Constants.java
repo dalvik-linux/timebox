@@ -29,7 +29,7 @@ public class Constants {
 	
 	//preset defaults
 	public static final int DEFAULT_TOTAL = 30,
-	 	 DEFAULT_WORK = 20,
+	 	 DEFAULT_WORK = 25,
 	 	 DEFAULT_EX_BREAK = 20,
 	 	 DEFAULT_BREAK_CYCLES = 4;
 }

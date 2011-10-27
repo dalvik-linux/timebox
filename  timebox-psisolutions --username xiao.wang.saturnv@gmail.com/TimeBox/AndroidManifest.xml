@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="nz.wgtn.psisolutions.timebox"
-      android:versionCode="10009" android:versionName="1.0.9">
+      android:versionCode="10010" android:versionName="1.0.10">
     <uses-sdk android:minSdkVersion="7" />
     <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
     <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>

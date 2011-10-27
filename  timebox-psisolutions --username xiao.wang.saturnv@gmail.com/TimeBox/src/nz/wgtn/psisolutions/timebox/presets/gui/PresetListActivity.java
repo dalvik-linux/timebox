@@ -54,6 +54,11 @@ public class PresetListActivity extends ListActivity{
 
 		//show first run dialog
 		if(Preferences.isFirstRun()){
+			//open the database
+			dbAdapter.open();
+			//add standard/default Pomodoro preset
+			dbAdapter.createPreset(PomodoroPreset.createDefault(this));
+			//show about dialog
 			HelpUtils.getHelpDialog(this, Constants.HELP_ABOUT).show();
 			Preferences.markFirstRun();
 		}

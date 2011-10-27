@@ -1,5 +1,8 @@
 package nz.wgtn.psisolutions.timebox.presets.backend;
 
+import nz.wgtn.psisolutions.timebox.Constants;
+import nz.wgtn.psisolutions.timebox.R;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -22,6 +25,19 @@ public class PomodoroPreset implements Parcelable{
 				return new PomodoroPreset[size];
 			}	
 	};
+	
+	/**
+	 * Creates the default 25/5 Pomodoro preset.
+	 * @param context
+	 * @return
+	 */
+	public static PomodoroPreset createDefault(Context context){
+		return new PomodoroPreset(Constants.DEFAULT_WORK,
+								  Constants.DEFAULT_TOTAL - Constants.DEFAULT_WORK,
+								  Constants.DEFAULT_EX_BREAK,
+								  Constants.DEFAULT_BREAK_CYCLES,
+								  context.getString(R.string.pomodoro_default));
+	}
 	
 	public PomodoroPreset(int workLength, int breakLength,
 			int exBreakLength, int breakCycles, String presetName) {
