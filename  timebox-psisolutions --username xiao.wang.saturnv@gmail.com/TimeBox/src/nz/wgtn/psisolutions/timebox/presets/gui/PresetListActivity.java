@@ -40,6 +40,9 @@ public class PresetListActivity extends ListActivity{
 
 	//activity request codes
 	private static final int CREATE_PRESET = 0, EDIT_PRESET = 1;
+	
+	//request update check
+	private boolean updateChecked = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +68,6 @@ public class PresetListActivity extends ListActivity{
 
 		//listen for long-clicks
 		registerForContextMenu(getListView());
-		
-		//check for updates
-		Utils.checkForUpdates(this, false);
 	}
 	
 	@Override
@@ -75,6 +75,21 @@ public class PresetListActivity extends ListActivity{
 		super.onStart();
 		//used to populate the list of presets from the database
 		populatePresets();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		//check for updates
+		if(!updateChecked){
+			try {
+				Utils.checkForUpdates(this, false);
+				updateChecked = true;
+			} catch (Exception e) {
+				//should not happen
+				Debug.e(TAG, "onResume ... update check failed!");
+			}
+		}
 	}
 	
 	@Override

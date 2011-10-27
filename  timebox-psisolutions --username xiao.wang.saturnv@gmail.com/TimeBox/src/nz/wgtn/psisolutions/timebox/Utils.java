@@ -135,7 +135,11 @@ public class Utils {
 					});
 				}
 				//show dialog
-				dialog.show();
+				try {
+					dialog.show();
+				} catch (Exception e) {
+					Debug.e(TAG, "checkForUpdates ... could not display dialog: " + e);
+				}
 			}
 		};
 		
