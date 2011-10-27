@@ -118,7 +118,7 @@ public class Utils {
 						}
 					});
 					//"Later" button
-					dialog.setNeutralButton(R.string.button_later, new DialogInterface.OnClickListener() {
+					dialog.setNegativeButton(R.string.button_later, new DialogInterface.OnClickListener() {
 						//does nothing (may change in the future)
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -126,7 +126,7 @@ public class Utils {
 						}
 					});
 					//"Dismiss" button
-					dialog.setNegativeButton(R.string.button_dismiss, new DialogInterface.OnClickListener() {
+					dialog.setNeutralButton(R.string.button_dismiss, new DialogInterface.OnClickListener() {
 						//records that this update has been dismissed
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
