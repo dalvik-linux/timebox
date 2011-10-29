@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
-  	android:layout_height="fill_parent">
+  	android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
 	<LinearLayout
 	  	android:orientation="vertical"
 	  	android:layout_width="fill_parent"
@@ -69,8 +68,8 @@
 	            style="@style/slider_bar"
 	            android:max="65"
 	            android:progress="0"
-	            android:progressDrawable="@drawable/sliderbar_progress_grey"
-	            android:thumb="@drawable/sliderthumb_grey" />
+	            android:thumb="@drawable/sliderthumb_grey"
+	            android:progressDrawable="@drawable/sliderbar_progress_grey" />
 	            
 	        <TextView
 	            android:id="@+id/lbl_total_length"
@@ -98,7 +97,7 @@
 	            style="@style/slider_bar_double"
 	            android:max="65"
 	            android:progress="0"
-	            android:progressDrawable="@drawable/sliderbar_double_progress"
+	            android:progressDrawable="@drawable/sliderbar_double_progress" 
 	            android:thumb="@drawable/sliderthumb_double" />
 	            
 	        <TextView
@@ -133,8 +132,9 @@
 	            style="@style/slider_bar"
 	            android:max="65"
 	            android:progress="0"
-	            android:progressDrawable="@drawable/sliderbar_progress_yellow"
-	            android:thumb="@drawable/sliderthumb_yellow" />
+	            android:thumb="@drawable/sliderthumb_yellow"
+	            android:progressDrawable="@drawable/sliderbar_progress_yellow" />
+	            	            
 	            
 	        <TextView
 	            android:id="@+id/lbl_ex_break_length"
