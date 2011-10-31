@@ -14,7 +14,7 @@ public class CircularVisualization extends AbstractVisualisation{
 	private Paint paint;
 
 	private static final int MAX_ALPHA = 200, MIN_ALPHA = 100;
-	private static final float WIPE_SIZE = 0.2f, WIPE_SPEED = 0.025f;
+	private static final float WIPE_SIZE = 0.2f, WIPE_SPEED = 0.025f, RADIUS_RATIO = 0.65f;
 
 	public CircularVisualization(PomodoroTimer timer, Context context) {
 		super(timer, context);
@@ -25,7 +25,6 @@ public class CircularVisualization extends AbstractVisualisation{
 
 	@Override
 	public void drawVisualisation(int timeRemaining, Canvas canvas) {
-		// TODO Auto-generated method stub
 		PomodoroTimer.TimerState state = timer.getState();
 		float radius = 1;
 		//float maxRadius = canvas.getHeight() + canvas.getWidth()/2;
@@ -52,7 +51,8 @@ public class CircularVisualization extends AbstractVisualisation{
  
 		float timeElapsed = (length * 60f) - timeRemaining;
 		
-		radius = (float)(canvas.getHeight()/1.75) * ((state == PomodoroTimer.TimerState.WORK ? timeElapsed : timeRemaining) / (length * 60f)); 
+		float completionRatio = ((state == PomodoroTimer.TimerState.WORK ? timeElapsed : timeRemaining) / (length * 60f));
+		radius = (float)(canvas.getHeight()/1.7) * completionRatio + 1; 
 		if(state == PomodoroTimer.TimerState.WORK) 
 			radius++; 
 		else 
@@ -62,10 +62,10 @@ public class CircularVisualization extends AbstractVisualisation{
 
 		if(timer.isPaused()){
 			wipeOffset = 0;
-			gradient = constructGradient(startColor, true, (int) (radius * -1), canvas.getWidth()/2,
+			gradient = constructGradient(startColor, true, 1, canvas.getWidth()/2,
 					canvas.getHeight()/2);
 		} else{
-			gradient = constructGradient(startColor, false, (int) (radius * -1), canvas.getWidth()/2,
+			gradient = constructGradient(startColor, false, canvas.getHeight() * RADIUS_RATIO * (completionRatio * 0.8f + 0.2f), canvas.getWidth()/2,
 					canvas.getHeight()/2);
 			updateWipeOffset(timer.getState() == PomodoroTimer.TimerState.WORK);
 		}
@@ -79,19 +79,21 @@ public class CircularVisualization extends AbstractVisualisation{
 
 	}
 
-	private RadialGradient constructGradient(int color, boolean flat, int height, int startX, int startY){
+	private RadialGradient constructGradient(int color, boolean flat, float radius, int startX, int startY){
 		int colorRGB = (color % 0x01000000);
 		int colorHi = colorRGB + (MAX_ALPHA << 24);
 		int colorLo = colorRGB + (MIN_ALPHA << 24);
 
 		RadialGradient gradient;
+		if(radius < 1)
+			radius = 1;
 		if(flat){
 			gradient = new RadialGradient(0, 0, 
-					-height, colorLo, colorLo, TileMode.CLAMP);
+					radius, colorLo, colorLo, TileMode.CLAMP);
 			return gradient;
 		} else{
 			gradient = new RadialGradient(
-					startX, startY, -height*(1 + WIPE_SIZE), 
+					startX, startY, radius, 
 					//(-WIPE_SIZE)*startX, startY, -height*(WIPE_SIZE),
 					new int[]{colorLo, colorHi, colorLo}, 
 					new float[]{wipeOffset-WIPE_SIZE, 
