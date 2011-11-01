@@ -286,6 +286,9 @@ public class PomodoroService extends Service {
 	
 	@Override
 	public void onDestroy() {
+		//reset volume
+		if(previousVolume >= 0)
+			audioManager.setStreamVolume(AudioManager.STREAM_ALARM, previousVolume, 0);
 		if(partialWakeLock.isHeld()){
 			partialWakeLock.release();
 			Debug.d(TAG, "onDestroy ... Partial Wake Lock aquired.");
@@ -352,9 +355,6 @@ public class PomodoroService extends Service {
 		}
 
 		boolean updateTimeRemaining(PomodoroTimer timer) {
-			//restore volume
-			if(previousVolume >= 0)
-				audioManager.setStreamVolume(AudioManager.STREAM_ALARM, previousVolume, 0);
 			int minutes = timer.getMinutesRemaining();
 			int seconds = timer.getSecondsRemaining();
 			if (seconds != 0)
