@@ -94,6 +94,14 @@ public class Preferences {
 	}
 	
 	/**
+	 * Gets the alert volume used when "Sound always on" is on.
+	 */
+	public static int getAlertVolume(){
+		return getPreference(res.getString(R.string.pref_key_alert_volume),
+				Integer.parseInt(res.getString(R.string.pref_def_alert_volume)));
+	}
+	
+	/**
 	 * Returns whether or not the "LED lights" option is on.
 	 */
 	public static boolean isLEDEnabled(){

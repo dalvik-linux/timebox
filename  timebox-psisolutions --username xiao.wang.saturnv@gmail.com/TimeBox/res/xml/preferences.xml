@@ -19,6 +19,15 @@
 		android:key="@string/pref_key_force_audio" android:summary="@string/pref_summary_force_audio"
 		android:defaultValue="@string/pref_def_force_audio"
 		android:dependency="@string/pref_key_silent"></CheckBoxPreference>
+	<com.hlidskialf.android.preference.SeekBarPreference android:key="@string/pref_key_alert_volume"
+        android:title="@string/pref_name_alert_volume"
+        android:summary="@string/pref_summary_alert_volume"
+        android:dialogMessage="Drag or press the slider to set the desired volume."
+        android:defaultValue="100"
+        android:text="%"
+        android:max="100"
+        android:dependency="@string/pref_key_force_audio"
+        />
 	<CheckBoxPreference android:title="@string/pref_name_wake_lock"
 		android:key="@string/pref_key_wake_lock" android:summary="@string/pref_summary_wake_lock"
 		android:defaultValue="@string/pref_def_wake_lock"></CheckBoxPreference>

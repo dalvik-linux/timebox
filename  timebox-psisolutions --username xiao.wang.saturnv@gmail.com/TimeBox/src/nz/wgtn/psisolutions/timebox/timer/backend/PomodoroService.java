@@ -26,6 +26,8 @@ public class PomodoroService extends Service {
 
 	// notification stuff
 	private NotificationManager notificationManager;
+	private AudioManager audioManager;
+	private int previousVolume = -1;
 	private final static int NOTIFICATION_ID = 0x101CA75;
 	private final static int POMODORO_START = 0xB00B1E5;
 	private final static int POMODORO_PAUSE = 0x1337CAFE;
@@ -109,6 +111,7 @@ public class PomodoroService extends Service {
 	@Override
 	public void onCreate() {
 		notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 		Debug.i(TAG, "PomoService created...");
 		
 		//grab wake locks
@@ -240,12 +243,21 @@ public class PomodoroService extends Service {
 					String ringtoneUri = Preferences.getAlertTone();
 					Debug.d(TAG, "Playing alert tone: " + ringtoneUri);
 					Ringtone ringtone = RingtoneManager.getRingtone(this, Uri.parse(ringtoneUri));
-					if(forceAudio)
+					if(forceAudio){
 						ringtone.setStreamType(AudioManager.STREAM_ALARM);
-					else
+						previousVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+						//set user desired volume
+						int newVol = Preferences.getAlertVolume() * audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM) / 100;
+						audioManager.setStreamVolume(AudioManager.STREAM_ALARM, newVol, 0);
+						Debug.v(TAG, "Playing alert tone at volume: " + newVol + " out of " + audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
+						ringtone.play();
+						//restore original volume
+						//audioManager.setStreamVolume(AudioManager.STREAM_ALARM, prevVol, 0);
+					} else{
 						ringtone.setStreamType(AudioManager.STREAM_NOTIFICATION);
+						ringtone.play();
+					}
 
-					ringtone.play();
 				}catch(NullPointerException e){
 					Debug.e(TAG, "No default ringtone found for notification");
 				}
@@ -311,7 +323,7 @@ public class PomodoroService extends Service {
 		public void onPause(PomodoroTimer timer) {
 			if(partialWakeLock.isHeld()){
 				partialWakeLock.release();
-				Debug.d(TAG, "callback.onPause ... Partial Wake Lock aquired.");
+				Debug.d(TAG, "callback.onPause ... Partial Wake Lock released.");
 			}
 			updateTimeRemaining(timer);
 			doNotify(POMODORO_PAUSE, timer.getState(), timeRemaining);
@@ -329,13 +341,20 @@ public class PomodoroService extends Service {
 
 		@Override
 		public void onCancel(PomodoroTimer timer) {
+			//reset volume
+			if(previousVolume >= 0)
+				audioManager.setStreamVolume(AudioManager.STREAM_ALARM, previousVolume, 0);
 			if(partialWakeLock.isHeld()){
 				partialWakeLock.release();
-				Debug.d(TAG, "callback.onPause ... Partial Wake Lock aquired.");
+				Debug.d(TAG, "callback.onCancel ... Partial Wake Lock released.");
 			}
+			stopSelf();
 		}
 
 		boolean updateTimeRemaining(PomodoroTimer timer) {
+			//restore volume
+			if(previousVolume >= 0)
+				audioManager.setStreamVolume(AudioManager.STREAM_ALARM, previousVolume, 0);
 			int minutes = timer.getMinutesRemaining();
 			int seconds = timer.getSecondsRemaining();
 			if (seconds != 0)
