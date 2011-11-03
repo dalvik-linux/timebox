@@ -73,10 +73,10 @@ public class TimerActivity extends Activity {
 			serviceBinder = ((PomodoroService.PomoBinder)service);
 			mIsBound = true;
 			
-			PomodoroTimer timer = serviceBinder.getTimer();
-			mTimerView.setTimer(timer);
 			serviceBinder.setPreset(preset);
 			serviceBinder.start();
+			PomodoroTimer timer = serviceBinder.getTimer();
+			mTimerView.setTimer(timer);
 			timer.attachCallback(new TimerCallback());
 
 			Debug.d(TAG, "onServiceConnected(): mIsBound = " + mIsBound);
