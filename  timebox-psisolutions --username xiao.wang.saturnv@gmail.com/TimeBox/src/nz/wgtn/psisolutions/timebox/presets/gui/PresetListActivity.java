@@ -201,7 +201,6 @@ public class PresetListActivity extends ListActivity{
 		dialog.setTitle(R.string.dialog_remove_title);
 		dialog.setMessage(R.string.dialog_remove_message);
 		dialog.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {		
-			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
 				dbAdapter.deletePreset(id);
 				populatePresets();

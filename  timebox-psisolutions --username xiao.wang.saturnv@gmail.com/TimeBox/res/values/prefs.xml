@@ -12,7 +12,7 @@
     <string name="pref_def_force_audio">false</string>
     <string name="pref_def_alert_volume">100</string>
     <string name="pref_def_lights">false</string>
-    <string name="pref_def_wake_lock">false</string>
+    <string name="pref_def_wake_lock">true</string>
     <string name="pref_def_silent">false</string>
     <string name="pref_name_alert_tone">Alert Tone</string>
     <string name="pref_name_visualisation">Visualisation</string>

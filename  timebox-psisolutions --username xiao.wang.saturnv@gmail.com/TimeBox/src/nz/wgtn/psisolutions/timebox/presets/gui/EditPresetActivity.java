@@ -121,7 +121,6 @@ public class EditPresetActivity extends Activity implements OnSeekBarChangeListe
 	public void onCreateContextMenu(final ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		//create menu item click listener
 		MenuItem.OnMenuItemClickListener listener = new MenuItem.OnMenuItemClickListener() {	
-			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				for(int i=0; i<menu.size(); i++){
 					menu.getItem(i).setChecked(false);
@@ -172,7 +171,6 @@ public class EditPresetActivity extends Activity implements OnSeekBarChangeListe
 		finish();
 	}
 
-	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 		switch(seekBar.getId()){
 		case R.id.total_length: //total length bar changed
@@ -210,10 +208,8 @@ public class EditPresetActivity extends Activity implements OnSeekBarChangeListe
 		}
 	}
 	
-	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {}
 
-	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		if(seekBar.getId() == R.id.total_length)
 			validateRatios(seekBar.getProgress());

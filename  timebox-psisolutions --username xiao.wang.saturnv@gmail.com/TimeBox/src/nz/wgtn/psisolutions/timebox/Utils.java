@@ -115,7 +115,6 @@ public class Utils {
 					//"Yes" button
 					dialog.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
 						//go to market
-						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URL_APP_MARKET));
 							context.startActivity(i);
@@ -124,7 +123,6 @@ public class Utils {
 					//"Later" button
 					dialog.setNegativeButton(R.string.button_later, new DialogInterface.OnClickListener() {
 						//does nothing (may change in the future)
-						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							
 						}
@@ -132,7 +130,6 @@ public class Utils {
 					//"Dismiss" button
 					dialog.setNeutralButton(R.string.button_dismiss, new DialogInterface.OnClickListener() {
 						//records that this update has been dismissed
-						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							Preferences.setLastDismissedVersion(newVersionCode);
 						}

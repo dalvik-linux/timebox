@@ -300,19 +300,16 @@ public class PomodoroService extends Service {
 
 		int timeRemaining;
 
-		@Override
 		public void onTimerStateChanged(PomodoroTimer timer) {
 			updateTimeRemaining(timer);
 			doNotify(POMODORO_STATE_CHANGE, timer.getState(), timeRemaining);
 		}
 
-		@Override
 		public void onTimerTicked(PomodoroTimer timer) {
 			if (updateTimeRemaining(timer))
 				doNotify(POMODORO_TICK, timer.getState(), timeRemaining);
 		}
 
-		@Override
 		public void onStart(PomodoroTimer timer) {
 			if(!partialWakeLock.isHeld()){
 				partialWakeLock.acquire();
@@ -322,7 +319,6 @@ public class PomodoroService extends Service {
 			doNotify(POMODORO_START, timer.getState(), timeRemaining);
 		}
 
-		@Override
 		public void onPause(PomodoroTimer timer) {
 			if(partialWakeLock.isHeld()){
 				partialWakeLock.release();
@@ -332,7 +328,6 @@ public class PomodoroService extends Service {
 			doNotify(POMODORO_PAUSE, timer.getState(), timeRemaining);
 		}
 
-		@Override
 		public void onResume(PomodoroTimer timer) {
 			if(!partialWakeLock.isHeld()){
 				partialWakeLock.acquire();
@@ -342,7 +337,6 @@ public class PomodoroService extends Service {
 			doNotify(POMODORO_RESUME, timer.getState(), timeRemaining);
 		}
 
-		@Override
 		public void onCancel(PomodoroTimer timer) {
 			//reset volume
 			if(previousVolume >= 0)

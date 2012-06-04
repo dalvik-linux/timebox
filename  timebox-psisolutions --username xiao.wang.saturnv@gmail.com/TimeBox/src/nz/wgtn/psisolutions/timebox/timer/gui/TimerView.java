@@ -45,11 +45,6 @@ public class TimerView extends SurfaceView implements SurfaceHolder.Callback, Po
 	
 	public void setTimer(PomodoroTimer pTimer){
 		pomoTimer = pTimer;
-	}
-
-	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		Debug.d(TAG, "visualisations created.");
 		pomoTimer.attachCallback(this);
 		animTimer = new Timer();
 		repaintTask = new SurfaceRepaintTask(getHolder());
@@ -67,10 +62,31 @@ public class TimerView extends SurfaceView implements SurfaceHolder.Callback, Po
 		animTimer.schedule(repaintTask, 0, DELAY);
 	}
 
-	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		Debug.d(TAG, "visualisations created.");
+		if(pomoTimer == null || animTimer != null)
+			return;
+		pomoTimer.attachCallback(this);
+		animTimer = new Timer();
+		repaintTask = new SurfaceRepaintTask(getHolder());
+		switch(Preferences.getVisualisation()){
+		case Constants.VISUALISATION_LINEAR_WIPE:
+			visualisation = new WipeVisualisation(pomoTimer, this.getContext());
+			break;
+		case Constants.VISUALISATION_RADIAL_WIPE:
+			visualisation = new RadialVisualisation(pomoTimer, this.getContext());
+			break;
+		case Constants.VISUALISATION_CIRCULAR_WIPE:
+			visualisation = new CircularVisualization(pomoTimer, this.getContext());
+			break;
+		}
+		animTimer.schedule(repaintTask, 0, DELAY);
+	}
+
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		Debug.d(TAG, "visualisations destroyed.");
 		animTimer.cancel();
+		animTimer = null;
 		pomoTimer.detachCallback(this);
 	}
 
@@ -92,6 +108,8 @@ public class TimerView extends SurfaceView implements SurfaceHolder.Callback, Po
 			
 		        try {
 		            c = surfaceHolder.lockCanvas(null);
+		            if(c == null)
+		            	return;
 		            visualisation.drawVisualisation(timeRemaining, c);
 		        } finally {
 		            // do this in a finally so that if an exception is thrown
@@ -112,38 +130,31 @@ public class TimerView extends SurfaceView implements SurfaceHolder.Callback, Po
 	}
 
 
-	@Override
 	public void onTimerStateChanged(PomodoroTimer timer) {
 		
 	}
 
-	@Override
 	public void onStart(PomodoroTimer timer) {
 		
 	}
 
-	@Override
 	public void onPause(PomodoroTimer timer) {
 		
 	}
 
-	@Override
 	public void onResume(PomodoroTimer timer) {
 		
 	}
 
-	@Override
 	public void onCancel(PomodoroTimer timer) {
 		animTimer.cancel();
 	}
 
-	@Override
 	public void onTimerTicked(PomodoroTimer timer) {
 		repaintTask.setTimeRemaining(timer.getHoursRemaining(),
 				timer.getMinutesRemaining(), timer.getSecondsRemaining());
 	}
 
-	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
 		
 	}

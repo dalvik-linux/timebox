@@ -71,10 +71,10 @@ public class RadialVisualisation extends AbstractVisualisation {
         canvas.drawColor(Color.BLACK);
         if(state == PomodoroTimer.TimerState.WORK){
         	canvas.drawArc(new RectF(new Rect(0-width, 0-height, width+width, height+height)), 
-        			0, (float) 360 - (360 * (progress / height)), true, paint);
+        			0, 360 - (360 * (progress / height)), true, paint);
         } else{
         	canvas.drawArc(new RectF(new Rect(0-width, 0-height, width+width, height+height)), 
-        			(float) 360 - (360 * (progress / height)), (float) 360 - (360 * ((height-progress) / height)), true, paint);
+        			360 - (360 * (progress / height)), 360 - (360 * ((height-progress) / height)), true, paint);
         }
 
 	}

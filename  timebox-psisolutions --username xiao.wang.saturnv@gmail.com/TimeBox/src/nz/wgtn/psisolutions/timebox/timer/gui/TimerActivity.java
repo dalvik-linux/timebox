@@ -68,7 +68,6 @@ public class TimerActivity extends Activity {
 
 	private ServiceConnection mConnection = new ServiceConnection (){
 
-		@Override
 		public void onServiceConnected (ComponentName name, IBinder service){
 			serviceBinder = ((PomodoroService.PomoBinder)service);
 			mIsBound = true;
@@ -82,7 +81,6 @@ public class TimerActivity extends Activity {
 			Debug.d(TAG, "onServiceConnected(): mIsBound = " + mIsBound);
 		}
 
-		@Override
 		public void onServiceDisconnected (ComponentName name){}
 	};
 	// service stuff end
@@ -110,7 +108,6 @@ public class TimerActivity extends Activity {
 		presetName.requestFocus();
 		//force focus
 		presetName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
 			public void onFocusChange(View v, boolean focus) {
 				if(!focus)
 					v.requestFocus();
@@ -152,7 +149,6 @@ public class TimerActivity extends Activity {
 	public void onCreateContextMenu(final ContextMenu menu, View v,ContextMenuInfo menuInfo) {
 		//create menu item click listener
 		MenuItem.OnMenuItemClickListener listener = new MenuItem.OnMenuItemClickListener() {	
-			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				for(int i=0; i<menu.size(); i++){
 					menu.getItem(i).setChecked(false);
@@ -270,6 +266,7 @@ public class TimerActivity extends Activity {
 		confirmCancel(true);
 	}
 
+	@Override
 	protected Dialog onCreateDialog(int id) {
 		final Dialog dialog;
 		switch(id){
@@ -282,7 +279,6 @@ public class TimerActivity extends Activity {
 
 			cancelBtn.setOnClickListener(new OnClickListener() {
 
-				@Override
 				public void onClick(View v) {
 					confirmCancel(false);
 					dialog.dismiss();
@@ -291,7 +287,6 @@ public class TimerActivity extends Activity {
 
 			playBtn.setOnClickListener(new OnClickListener() {
 
-				@Override
 				public void onClick(View v) {
 					playClicked();
 					dialog.dismiss();
@@ -317,7 +312,6 @@ public class TimerActivity extends Activity {
 			dialog.setMessage(R.string.dialog_cancel_message);
 			dialog.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
 
-				@Override
 				public void onClick(DialogInterface arg0, int arg1) {
 					serviceBinder.cancel();
 					doUnbindService();
@@ -384,7 +378,6 @@ public class TimerActivity extends Activity {
 
 	private class TimerCallback implements PomodoroTimerCallback{
 
-		@Override
 		public void onTimerStateChanged(PomodoroTimer timer) {
 			switch(timer.getState()){
 			case WORK:
@@ -411,27 +404,22 @@ public class TimerActivity extends Activity {
 			}
 		}
 
-		@Override
 		public void onStart(PomodoroTimer timer) {
 
 		}
 
-		@Override
 		public void onPause(PomodoroTimer timer) {
 
 		}
 
-		@Override
 		public void onResume(PomodoroTimer timer) {
 
 		}
 
-		@Override
 		public void onCancel(PomodoroTimer timer) {
 
 		}
 
-		@Override
 		public void onTimerTicked(PomodoroTimer timer) {
 			setTimerDisplay(timer.getHoursRemaining(), timer.getMinutesRemaining(), timer.getSecondsRemaining());
 		}

@@ -15,12 +15,10 @@ public class PomodoroPreset implements Parcelable{
 	public static final Parcelable.Creator<PomodoroPreset> CREATOR
 		= new Parcelable.Creator<PomodoroPreset>() {
 
-			@Override
 			public PomodoroPreset createFromParcel(Parcel source) {
 				return new PomodoroPreset(source);
 			}
 
-			@Override
 			public PomodoroPreset[] newArray(int size) {
 				return new PomodoroPreset[size];
 			}	
@@ -81,7 +79,6 @@ public class PomodoroPreset implements Parcelable{
 		this.breakCycles = in.readInt();
 	}
 	
-	@Override
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeString(presetName);
 		out.writeInt(workLength);
@@ -90,7 +87,6 @@ public class PomodoroPreset implements Parcelable{
 		out.writeInt(breakCycles);
 	}
 
-	@Override
 	public int describeContents() {
 		return 0;
 	}
